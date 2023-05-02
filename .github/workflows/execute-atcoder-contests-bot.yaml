@@ -1,0 +1,21 @@
+name: Execute AtCoder Contests Bot
+on:
+  schedule:
+    - cron: '0 6 * * *'
+jobs:
+  exec:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version-file: '.python-version'
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Execute AtCoder Contests Bot
+        run: python src/main.py
+        env:
+          DISCORD_CHANNEL_ID: ${{ secrets.DISCORD_CHANNEL_ID }}
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
